@@ -1,17 +1,18 @@
 import React, { PropTypes } from 'react'
+import { Col } from 'react-bootstrap'
 
 var Images = ({images, onImageClick }) => {
   return (
-  <ul>
+  <div>
     {images.map((image, i) =>
-      <li key={i}>
+      <Col key={i} lg={3} md={4} sm={6} xs={12} style={{height: 235}}>
         <img key={image.imageID} src={image.url}
-          style={{width:200, height:200}}
+          style={{width: 235, height: 'auto'}}
           alt={image.old_tags[0]}
           onClick={() => onImageClick(image)} />
-      </li>
+      </Col>
     )}
-  </ul>
+  </div>
 )
 }
 
