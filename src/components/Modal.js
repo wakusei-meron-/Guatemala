@@ -1,56 +1,47 @@
 import React from 'react'
-import { Popover, Tooltip, Button, Modal, OverlayTrigger } from 'react-bootstrap'
+import { Button, Modal, OverlayTrigger } from 'react-bootstrap'
 import { close } from '../actions/ModalAction'
+import { registerTags } from '../actions/ImageAction'
 
-const popover = (
-  <Popover id="modal-popover" title="popover">
-  very popover. such engagement
-  </Popover>
-)
-const tooltip = (
-  <Tooltip id="modal-tooltip">
-  wow.
-  </Tooltip>
-)
 let HumanCheckModal = React.createClass({
   render(){
-    const { show, dispatch } = this.props
+    let newTagsInput
+    const { show, dispatch, image } = this.props
     return (
-      <Modal show={ show } onHide={() => dispatch(close())}>
-      <Modal.Header closeButton>
-      <Modal.Title>Modal heading</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-      <h4>Text in a modal</h4>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        <Modal show={ show } onHide={() => dispatch(close())}>
+        <Modal.Header closeButton>
+        <Modal.Title>画像タグの修正</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        { (() => {return image ?
+          <div>
+          <img src={image.url}
+          style={{width:200, height:200}}
+          alt={image.old_tags} />
 
-      <h4>Popover in a modal</h4>
-      <p>there is a <OverlayTrigger overlay={popover}><a href="#">popover</a></OverlayTrigger> here</p>
+          <p>現在のタグ：{image.old_tags}</p>
 
-      <h4>Tooltips in a modal</h4>
-      <p>there is a <OverlayTrigger overlay={tooltip}><a href="#">tooltip</a></OverlayTrigger> here</p>
-
-      <hr />
-
-      <h4>Overflowing text to show scroll behavior</h4>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-      </Modal.Body>
-      <Modal.Footer>
-      <Button onClick={this.close}>Close</Button>
-      </Modal.Footer>
+          <form onSubmit={e => {
+            e.preventDefault()
+            dispatch(registerTags(image, newTagsInput.value))
+          }}>
+          <p>割り当てるタグ</p>
+            <p>※カンマ区切りで複数割当可</p>
+          <input ref={node => {
+            newTagsInput = node
+          }} />
+          </form>
+          <Button onClick={() => dispatch(registerTags(image, newTagsInput.value))}>登録</Button>
+          </div>
+          : null})()
+        }
+        </Modal.Body>
       </Modal>
     )},
     propTypes:{
-        show: React.PropTypes.bool.isRequired,
-        dispatch: React.PropTypes.func.isRequired
+      show: React.PropTypes.bool.isRequired,
+        dispatch: React.PropTypes.func.isRequired,
+        image: React.PropTypes.object
     }
 });
 

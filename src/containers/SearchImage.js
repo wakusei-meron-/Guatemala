@@ -7,7 +7,7 @@ import Modal from '../components/Modal'
 class SearchImage extends Component {
   render() {
     let input
-    const { dispatch, keyword, images, showModal } = this.props
+    const { dispatch, keyword, images, showModal, selectedImage } = this.props
 
     return (
     <div>
@@ -30,7 +30,7 @@ class SearchImage extends Component {
       <Images images={images} onImageClick={
           (image) => dispatch(handleImageClick(image))
         }/>
-      <Modal show={showModal} dispatch={dispatch}/>
+      <Modal show={showModal} dispatch={dispatch} image={selectedImage}/>
       </div>
   )
   }
@@ -38,7 +38,8 @@ class SearchImage extends Component {
 const mapStateToProps = (state) => ({
     keyword: state.images.keyword,
     images: state.images.images,
-    showModal: state.images.showModal
+    showModal: state.images.showModal,
+    selectedImage: state.images.selectedImage
   })
 SearchImage = connect(mapStateToProps)(SearchImage)
 
