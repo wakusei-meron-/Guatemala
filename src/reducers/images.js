@@ -1,14 +1,35 @@
-const images = (state = {keyword: "", images: []}, action) => {
+import * as types from '../constants/ActionTypes'
+
+const initialState = {
+  keyword: "",
+  images: [],
+  showModal: false,
+  selectedImage: {}
+}
+
+const images = (state = initialState, action) => {
   switch (action.type) {
-    case 'REQUEST_IMAGES':
+    case types.REQUEST_IMAGES:
       return {
         ...state,
-        keyword: action.keyword,
+        keyword: action.keyword
       }
-    case 'RECEIVE_IMAGES':
+    case types.RECEIVE_IMAGES:
       return {
         ...state,
         images: action.images
+      }
+    case types.CLOSE_MODAL:
+      return {
+        ...state,
+        showModal: false,
+        selectedImage: {}
+      }
+    case types.IMAGE_CLICK:
+      return {
+        ...state,
+        showModal: true,
+        selectedImage: action.selectedImage
       }
     default:
       return state

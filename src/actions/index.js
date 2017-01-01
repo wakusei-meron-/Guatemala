@@ -1,3 +1,5 @@
+import * as types from '../constants/ActionTypes'
+
 let nextTodoId = 0
 export const addTodo = (text) => ({
   type: 'ADD_TODO',
@@ -15,13 +17,18 @@ export const toggleTodo = (id) => ({
   id
 })
 
+export const handleImageClick = (image) => ({
+  type: types.IMAGE_CLICK,
+  selectedImage: image
+})
+
 const requestImages = (keyword) => ({
-  type: 'REQUEST_IMAGES',
+  type: types.REQUEST_IMAGES,
   keyword: keyword,
 })
 
 const receiveImages = (json) => ({
-  type: 'RECEIVE_IMAGES',
+  type: types.RECEIVE_IMAGES,
   images: json
 })
 

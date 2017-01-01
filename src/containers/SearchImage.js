@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchImages } from '../actions'
+import { fetchImages, handleImageClick } from '../actions'
 import Images from '../components/Images'
+import Modal from '../components/Modal'
+//import { Popover, Tooltip, Button, Modal, OverlayTrigger } from 'react-bootstrap'
+
 
 class SearchImage extends Component {
   render() {
     let input
-    const { dispatch, keyword, images } = this.props
+    const { dispatch, keyword, images, showModal } = this.props
 
     return (
     <div>
@@ -26,14 +29,18 @@ class SearchImage extends Component {
         </button>
         <p>検索ワード：{keyword}</p>
       </form>
-      <Images images={images} onImageClick={(image) => console.log(image)}/>
-    </div>
+      <Images images={images} onImageClick={
+          (image) => dispatch(handleImageClick(image))
+        }/>
+      <Modal show={showModal} dispatch={dispatch}/>
+      </div>
   )
   }
 }
 const mapStateToProps = (state) => ({
     keyword: state.images.keyword,
-    images: state.images.images
+    images: state.images.images,
+    showModal: state.images.showModal
   })
 SearchImage = connect(mapStateToProps)(SearchImage)
 
