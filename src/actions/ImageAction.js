@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes'
+import * as config from '../constants/Config'
 
-const host = 'http://localhost:5000'
+const host = config.HOST
 
 export const handleImageClick = (image) => ({
   type: types.IMAGE_CLICK,

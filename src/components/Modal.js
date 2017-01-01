@@ -1,12 +1,11 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
-import { Button, Modal, Panel, FormGroup, FormControl, InputGroup } from 'react-bootstrap'
+import { Button, Modal, Panel, FormControl } from 'react-bootstrap'
 import { close } from '../actions/ModalAction'
 import { registerTags } from '../actions/ImageAction'
 
 let HumanCheckModal = React.createClass({
   render(){
-    let newTagsInput
     const { show, dispatch, image } = this.props
     return (
         <Modal show={ show } onHide={() => dispatch(close())}>
