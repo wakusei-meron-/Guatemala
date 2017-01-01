@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchImages, handleImageClick } from '../actions'
+import { fetchImages, handleImageClick } from '../actions/ImageAction'
 import Images from '../components/Images'
 import Modal from '../components/Modal'
-//import { Popover, Tooltip, Button, Modal, OverlayTrigger } from 'react-bootstrap'
-
 
 class SearchImage extends Component {
   render() {
