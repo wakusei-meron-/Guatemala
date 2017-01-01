@@ -1,7 +1,7 @@
 # Guatemala
 Guatemala is a web application for retagging image
 
-# Getting started
+## Getting started
 
 Download node modules.
 
